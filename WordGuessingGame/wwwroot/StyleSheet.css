@@ -1,3 +1,77 @@
-﻿body {
-    background: black;
+﻿
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@669&display=swap');
+
+:root{
+    --primary-text-color: black;
+    --dark-bg-text-color: white;
+    --primary-bg-color: aqua;
+    --header-bg-color: black;
+    --footer-bg-color: black;
+}
+
+.left {
+    margin: 2rem;
+}
+
+
+
+body {
+    width: 100vw;
+    height: 100vh;
+    font-family: Roboto;
+    background: var(--primary-bg-color);
+    color: var(--primary-text-color);
+}
+
+.header_footer--template {
+    background: var(--header-bg-color);
+    color: var(--dark-bg-text-color);
+    display: flex;
+    align-items: center;
+    
+}
+
+
+.header {
+    width: 100%;
+    height: 5%;
+}
+
+.footer {
+    width: 100%;
+    height: 5%;
+}
+
+
+
+.main-Body{
+    width:100%;
+    height: 90%;
+}
+
+.mainBody-Render {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.index {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.field {
+    display: flex;
+}
+
+.field__input {
+    font-size: 3rem;
+    width: 1em;
+    text-align: center;
+    text-transform: uppercase;
 }

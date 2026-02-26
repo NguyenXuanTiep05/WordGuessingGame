@@ -1,22 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en" class="HTML">
 <head>
+    <link rel="stylesheet" href="~/StyleReset.css" />
     <link rel="stylesheet" href="~/StyleSheet.css" />
-    <title>@ViewData["Title"]</title>
+    <title>Guess the word</title>
 </head>
 
 
 
 <body>
-    <header>
+    <header class="header header_footer--template">
+        <h1 class="left">Guess the word</h1>
     </header>
-    <div>
-        <main role="main" >
+    <div class="main-Body">
+        <main role="main" class="mainBody-Render" >
             @RenderBody()
         </main>
     </div>
 
-    <footer>
+    <footer class="footer header_footer--template">
     </footer>
 
 </body>
