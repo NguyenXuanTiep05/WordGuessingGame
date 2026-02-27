@@ -61,12 +61,15 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction:column;
     justify-content: center;
     align-items: center;
+    gap: 2em;d
 }
 
 .field {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .field__input {
@@ -74,4 +77,9 @@ body {
     width: 1em;
     text-align: center;
     text-transform: uppercase;
+}
+
+.answers {
+    display: grid;
+    grid-template: 1em / auto auto auto auto auto;
 }
