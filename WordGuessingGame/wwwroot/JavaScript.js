@@ -103,13 +103,15 @@ function verdict(verdict, word) {
     }
 
     numberOfGuesses++;
-    if (numberOfGuesses >= word.length) {
+    if (rightGuessed) {
+        checkEndGame(true)
+    }
+
+    else if (numberOfGuesses >= word.length) {
         checkEndGame(false)
     }
 
-    if (rightGuessed) {
-        checkEndGame(true)
-    } 
+ 
 }
 
 function checkEndGame(win) {
