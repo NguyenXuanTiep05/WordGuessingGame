@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Transactions;
 
@@ -16,21 +17,38 @@ namespace WordGuessingGame.Pages
             return Content(AnswerCheck(guess));
         }
 
-        private string AnswerCheck(string word)
+        private static string AnswerCheck(string word)
         {
             string verdict = "";
             for (int i = 0; i < CorrectWord.Length; i++)
             {
-                string temp = "";
+                if (CorrectWord[i] == word[i])
+                {
+                    verdict += "T";
+                }
+                else if (ContainsCharacter(word[i]))
+                {
+                    verdict += "C";
+                }
 
-                temp += word[i] == CorrectWord[i] ? "T" : "F";
+                else
+                {
+                    verdict += "F";
+                }
 
-                verdict += temp;
             }
 
             return verdict;
         }
+
+        private static bool ContainsCharacter(char character)
+        {
+            return CorrectWord.Contains(character);
+        }
     }
+
+
+
 
     public record Validated_Word(string word);
 }

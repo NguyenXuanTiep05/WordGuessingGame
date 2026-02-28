@@ -2,7 +2,7 @@
 
 
 var inputs = document.querySelectorAll("#field input");
-var form = document.getElementById("guessForm");
+var form = document.getElementById("guess_Form");
 
 
 
@@ -72,17 +72,65 @@ function callValidation(word) {
         body: JSON.stringify({ word: word })
     })
         .then(res => res.text())
-        .then(data => write(data));
+        .then(data => verdict(data, word));
 }
 
-function write(verdict) {
+let numberOfGuesses = 0;
 
-    var answers = document.getElementById("answers");
 
-    verdict.trim().split('').forEach(function (letter) {
+function verdict(verdict, word) {
+
+    var answerField = document.getElementById("answers");
+    var rightGuessed = true;
+    for (let i = 0; i < verdict.length; i++) {
         var div = document.createElement("div");
-        div.textContent = letter === "T" ? "correct" : "wrong";
-        answers.appendChild(div);
+        switch (verdict[i]) {
+            case "T":
+                div.className = 'answers__Letter answers__Letter--Right'
+                break;
+            case "F":
+                div.className = 'answers__Letter answers__Letter--Wrong'
+                rightGuessed = false;
+                break;
+            case "C":
+                div.className = 'answers__Letter answers__Letter--WrongPosition'
+                rightGuessed = false;
+                break;
+            default:
+        }
+        div.textContent = word[i];
+        answerField.appendChild(div);
+    }
+
+    numberOfGuesses++;
+    if (numberOfGuesses >= word.length) {
+        checkEndGame(false)
+    }
+
+    if (rightGuessed) {
+        checkEndGame(true)
+    } 
+}
+
+function checkEndGame(win) {
+
+    var Notfication = document.getElementById("notification_Text");
+
+    var victoryText = document.createElement("h1");
+    victoryText.innerText = win ? "You guessed right!!!!!!!!!!!" : "You are out of guesses";
+
+    var resetBtn = document.createElement("button");
+    resetBtn.addEventListener('click', function () {
+        window.location.reload();
+    });
+    resetBtn.className = "notification_Text__Reset_Button";
+    resetBtn.innerText = "Click here to play again";
+
+    Notfication.appendChild(resetBtn);
+    Notfication.appendChild(victoryText);
+
+    inputs.forEach(function (input) {
+        input.disabled = true;
     });
 }
 

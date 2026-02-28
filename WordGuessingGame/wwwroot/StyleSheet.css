@@ -8,6 +8,10 @@
     --primary-bg-color: aqua;
     --header-bg-color: black;
     --footer-bg-color: black;
+    
+    --answer-right: green;
+    --answer-wrong: red;
+    --answer-wrong-position: orange;
 }
 
 .left {
@@ -81,5 +85,45 @@ body {
 
 .answers {
     display: grid;
-    grid-template: 1em / auto auto auto auto auto;
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 0.5em;
+}
+
+.answers__Letter {
+    font-size: 3rem;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+.answers__Letter--Right{
+    background-color: var(--answer-right);
+}
+.answers__Letter--Wrong {
+    background-color: var(--answer-wrong);
+}
+.answers__Letter--WrongPosition {
+    background-color: var(--answer-wrong-position);
+}
+
+
+.notification_Text{
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.notification_Text__Reset_Button{
+    height: 3em;
+    background-color: transparent;
+    border: 3px solid black;
+    transition: 0.1s;
+}
+
+.notification_Text__Reset_Button:hover{
+    border-radius: 5px;
+    background-color:var(--answer-right);
 }
