@@ -1,36 +1,21 @@
 ﻿
 
 
-var inputs = document.querySelectorAll("#field input");
-var form = document.getElementById("guess_Form");
+const inputs = document.querySelectorAll("#field input");
+const form = document.getElementById("guess_Form");
 
 
 
+const Main = () => {
+    inputs[0].focus();
 
 
-
-
-(function () {
-    inputs.forEach(function (input, i) {
-        input.addEventListener("keyup", function (e) {
+    inputs.forEach( (input, i) => {
+        input.addEventListener("keyup", (e) => {
 
             if (!isLetter(input.value)) {
                 input.value = "";
             }
-
-            if (input.value.length === input.maxLength && inputs[i + 1]) {
-                inputs[i + 1].disabled = false;
-                    inputs[i + 1].focus();
-            }
-
-
-            else if (!input.value.length && inputs[i + 1]) {
-                for (var j = i + 1; j < inputs.length; j++) {
-                    inputs[j].disabled = true;
-                    inputs[j].value = "";
-                }
-            }
-
 
             if (e.key === "Backspace" && !input.value.length && inputs[i - 1]) {
                 inputs[i].disabled = true;
@@ -40,32 +25,50 @@ var form = document.getElementById("guess_Form");
                 inputs[i - 1].focus();
             }
 
-            var allFilled = Array.from(inputs).every(function (inp) {
+            if (input.value.length === input.maxLength && inputs[i + 1]) {
+                inputs[i + 1].disabled = false;
+                    inputs[i + 1].focus();
+            }
+
+
+            else if (!input.value.length && inputs[i + 1]) {
+                for (let j = i + 1; j < inputs.length; j++) {
+                    inputs[j].disabled = true;
+                    inputs[j].value = "";
+                }
+            }
+
+
+
+
+            const allFilled = Array.from(inputs).every( (inp) =>{
                 return inp.value.length === inp.maxLength;
             });
             if (allFilled) {
-                var word = Array.from(inputs).map(input => input.value).join('');
+                let word = Array.from(inputs).map(input => input.value).join('');
                 callValidation(word);
                 rest();
             }
         });
     });
-})();
+};
+
+Main();
 
 
-function isLetter(str) {
+const isLetter = (str) => {
     return str.length === 1 && str.match(/[a-z]/i);
 }
 
-function rest(e) {
-    inputs.forEach(function (input, i) {
+const rest = (e) => {
+    inputs.forEach( (input, i) => {
         input.value = "";
         if (i !== 0) input.disabled = true;
     });
     inputs[0].focus();
 }
 
-function callValidation(word) {
+const callValidation = (word) => {
     fetch('/Index?handler=Validate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -78,12 +81,12 @@ function callValidation(word) {
 let numberOfGuesses = 0;
 
 
-function verdict(verdict, word) {
+const verdict = (verdict, word) => {
 
-    var answerField = document.getElementById("answers");
-    var rightGuessed = true;
+    let answerField = document.getElementById("answers");
+    let rightGuessed = true;
     for (let i = 0; i < verdict.length; i++) {
-        var div = document.createElement("div");
+        let div = document.createElement("div");
         switch (verdict[i]) {
             case "T":
                 div.className = 'answers__Letter answers__Letter--Right'
@@ -114,24 +117,32 @@ function verdict(verdict, word) {
  
 }
 
-function checkEndGame(win) {
+const checkEndGame = (win) => {
 
-    var Notfication = document.getElementById("notification_Text");
+    let Notfication = document.getElementById("notification_Text");
 
-    var victoryText = document.createElement("h1");
+    let victoryText = document.createElement("h1");
     victoryText.innerText = win ? "You guessed right!!!!!!!!!!!" : "You are out of guesses";
 
-    var resetBtn = document.createElement("button");
-    resetBtn.addEventListener('click', function () {
+    let resetBtn = document.createElement("button");
+    resetBtn.addEventListener('click',  () =>{
         window.location.reload();
     });
+
+    document.addEventListener("keyup",(e) =>{
+        if(e.key === "Enter"){
+            window.location.reload();
+        }
+    } )
+
+
     resetBtn.className = "notification_Text__Reset_Button";
-    resetBtn.innerText = "Click here to play again";
+    resetBtn.innerText = "Click here or press ENTER to play again";
 
     Notfication.appendChild(resetBtn);
     Notfication.appendChild(victoryText);
 
-    inputs.forEach(function (input) {
+    inputs.forEach( (input) => {
         input.disabled = true;
     });
 }

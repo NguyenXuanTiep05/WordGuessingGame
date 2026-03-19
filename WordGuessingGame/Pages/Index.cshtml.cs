@@ -10,7 +10,7 @@ namespace WordGuessingGame.Pages
     [IgnoreAntiforgeryToken]
     public class IndexModel : PageModel
     {
-        private static string[] guessWord = {
+        private readonly string[] guessWord = {
             "apple","grape","peach","mango","lemon","berry","melon","olive","bread","sugar",
             "honey","candy","chair","table","couch","shelf","plant","stone","brick","metal",
             "water","river","ocean","beach","cloud","storm","flame","smoke","light","sound",
@@ -21,7 +21,7 @@ namespace WordGuessingGame.Pages
             "piano","viola","drums","flute","radio","phone","cable","truck","train","plane",
             "motor","wheel","engine","frame","panel","brick","stone","steel","fiber","paper",
             "novel","story","poem","image","photo","video","music","album","actor","queen",
-            "king","pride","truth","peace","power","money","skill","trade","craft","award"
+            "pride","truth","peace","power","money","skill","trade","craft","award"
         };
 
         private static string CorrectWord = "";
@@ -34,7 +34,7 @@ namespace WordGuessingGame.Pages
             Debug.WriteLine(CorrectWord);
         }
 
-        public ContentResult OnPostValidate([FromBody] Validated_Word data)
+        public ContentResult OnPostValidateAsync([FromBody] Validated_Word data)
         {
             var guess = string.Concat(data.word).ToUpperInvariant();
             return Content(AnswerCheck(guess));
