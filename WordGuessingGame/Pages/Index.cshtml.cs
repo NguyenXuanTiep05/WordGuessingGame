@@ -29,20 +29,20 @@ namespace WordGuessingGame.Pages
 
         public void OnGet()
         {
-            Random rnd = new Random();
+            Random rnd = new ();
             CorrectWord = guessWord[rnd.Next(guessWord.Length)].ToUpperInvariant();
             Debug.WriteLine(CorrectWord);
         }
 
         public ContentResult OnPostValidateAsync([FromBody] Validated_Word data)
         {
-            var guess = string.Concat(data.word).ToUpperInvariant();
+            var guess = string.Concat(data.Word).ToUpperInvariant();
             return Content(AnswerCheck(guess));
         }
 
         private static string AnswerCheck(string word)
         {
-            Dictionary<char, int> letterCount = new Dictionary<char, int>();
+            Dictionary<char, int> letterCount = new();
 
             for (int i = 0; i < CorrectWord.Length; i++)
             {
@@ -102,5 +102,5 @@ namespace WordGuessingGame.Pages
 
 
 
-    public record Validated_Word(string word);
+    public record Validated_Word(string Word);
 }
